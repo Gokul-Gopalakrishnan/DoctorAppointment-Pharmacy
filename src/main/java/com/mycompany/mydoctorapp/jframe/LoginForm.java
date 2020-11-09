@@ -49,14 +49,19 @@ public class LoginForm extends javax.swing.JFrame {
         UsernameField = new javax.swing.JTextField();
         PasswordField = new javax.swing.JPasswordField();
         LoginBtn = new javax.swing.JButton();
+        regstrbtn = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel3.setBackground(new java.awt.Color(51, 204, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         LoginLabel.setFont(new java.awt.Font("KodchiangUPC", 3, 72)); // NOI18N
         LoginLabel.setForeground(new java.awt.Color(51, 51, 51));
@@ -122,6 +127,28 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        regstrbtn.setBackground(new java.awt.Color(51, 255, 153));
+        regstrbtn.setForeground(new java.awt.Color(0, 51, 153));
+        regstrbtn.setText("Not a member? Register here");
+        regstrbtn.setBorderPainted(false);
+        regstrbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regstrbtnActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Patient", "Doctor" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Login/Register as :");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -142,9 +169,20 @@ public class LoginForm extends javax.swing.JFrame {
                             .addComponent(PasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(70, 70, 70))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(219, 219, 219)
+                        .addComponent(regstrbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(271, 271, 271))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +199,13 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(PasswordLabel))
                 .addGap(38, 38, 38)
                 .addComponent(LoginBtn)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addComponent(regstrbtn)
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,9 +234,29 @@ public class LoginForm extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this,"Username/Password should not be empty.","Error",JOptionPane.ERROR_MESSAGE);
         }else{
-            userLogin(username,password);
+            userLogin(username,password,jComboBox1.getSelectedItem().toString());
         }
     }//GEN-LAST:event_LoginBtnActionPerformed
+
+    private void regstrbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regstrbtnActionPerformed
+        // TODO add your handling code here:
+        if(jComboBox1.getSelectedItem().toString().equals("Doctor"))
+        {
+            dispose();
+            DocRegister dr = new DocRegister();
+            dr.setTitle("Doc Registration");
+            dr.setVisible(true);
+        }else{
+            dispose();
+            appointment a = new appointment();
+            a.setTitle("Registration");
+            a.setVisible(true);
+        }
+    }//GEN-LAST:event_regstrbtnActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,27 +300,43 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel PasswordLabel;
     private javax.swing.JTextField UsernameField;
     private javax.swing.JLabel UsernameLabel;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton regstrbtn;
     // End of variables declaration//GEN-END:variables
 
-    private void userLogin(String username, String password) {
+    private void userLogin(String username, String password, String role) {
         Connection dbconn = DBConnection.connectDB();
         if(dbconn!=null){
         try{
+        String query = null;
+        if(role.equals("Doctor")){
+            query = "Select * from doctor WHERE username=? AND password=?";
+        }else{
+            query = "Select * from patient WHERE username=? AND password=?";
+        }
         PreparedStatement st = (PreparedStatement)
-                dbconn.prepareStatement("Select * from patient WHERE username=? AND password=?");
+                dbconn.prepareStatement(query);
         String cpassword = String.valueOf(password);
         
         st.setString(1, username);
         st.setString(2, password);
         ResultSet res = st.executeQuery();
         if(res.next()){
-            dispose();
-            Dashboard d = new Dashboard();
-            d.setTitle("Dashboard");
-            d.setVisible(true);
+            if(role.equals("Doctor")){
+                dispose();
+                DocDashboard dd = new DocDashboard();
+                dd.setTitle("Doc Dashboard");
+                dd.setVisible(true);
+            }else{
+                dispose();
+                Dashboard d = new Dashboard();
+                d.setTitle("Dashboard");
+                d.setVisible(true);
+            }
         }else{
             System.out.println("username: "+username);
             System.out.println("password: "+cpassword);

@@ -5,13 +5,10 @@
  */
 package com.mycompany.mydoctorapp.jframe;
 
-import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import java.sql.*;
 /**
  *
  * @author Gokul-Anju
@@ -64,10 +61,10 @@ public class appointment extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("First Name");
+        jLabel1.setText("First Name*");
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Last Name");
+        jLabel2.setText("Last Name*");
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Date of birth");
@@ -76,13 +73,13 @@ public class appointment extends javax.swing.JFrame {
         jLabel4.setText("Gender");
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Phone");
+        jLabel5.setText("Phone*");
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("E-mail");
 
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Username");
+        jLabel7.setText("Username*");
 
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -114,9 +111,14 @@ public class appointment extends javax.swing.JFrame {
         jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Other" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("Password");
+        jLabel9.setText("Password*");
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -137,6 +139,7 @@ public class appointment extends javax.swing.JFrame {
         });
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 102));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel10.setFont(new java.awt.Font("KodchiangUPC", 3, 72)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -147,7 +150,7 @@ public class appointment extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
+                .addContainerGap(95, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addGap(86, 86, 86))
         );
@@ -222,7 +225,7 @@ public class appointment extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel8)
@@ -253,9 +256,14 @@ public class appointment extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         try {
-            String query = "INSERT INTO `patient`(`FirstName`, `LastName`, `DateofBirth`, `Gender`, `Phone`, `E-mail`, `Username`, `Password`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+            if("".equals(jTextField1.getText())||"".equals(jTextField2.getText())||"".equals(jTextField5.getText())||"".equals(jTextField7.getText())||"".equals(jPasswordField1.getText()))
+            {
+                 JOptionPane.showMessageDialog(null, "Required Fields Cannot be Empty.");
+            }
+            else{
+            String query = "INSERT INTO `patient`(`FirstName`, `LastName`, `DateofBirth`, `Gender`, "
+                    + "`Phone`, `E-mail`, `Username`, `Password`) " + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
             con = DriverManager.getConnection("jdbc:mysql://localhost:3307/docappointment", "root", "");
             pst = con.prepareStatement(query);
             pst.setString(1, jTextField1.getText());
@@ -268,6 +276,11 @@ public class appointment extends javax.swing.JFrame {
             pst.setString(8, jPasswordField1.getText());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "REGISTRATION SUCCESSFUL");
+            dispose();
+            LoginForm lg = new LoginForm();
+            lg.setTitle("LoginForm");
+            lg.setVisible(true);
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -284,6 +297,10 @@ public class appointment extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
