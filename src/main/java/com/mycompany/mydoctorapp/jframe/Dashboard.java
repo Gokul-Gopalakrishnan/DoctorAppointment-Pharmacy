@@ -97,6 +97,11 @@ public class Dashboard extends javax.swing.JFrame {
         docappbtn.setIcon(new javax.swing.ImageIcon("F:\\Gokul\\Mini Project\\appointment.png")); // NOI18N
         docappbtn.setText("DOCTOR APPOINTMENT");
         docappbtn.setBorderPainted(false);
+        docappbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                docappbtnActionPerformed(evt);
+            }
+        });
 
         prevbtn.setBackground(new java.awt.Color(255, 102, 102));
         prevbtn.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
@@ -170,6 +175,13 @@ public class Dashboard extends javax.swing.JFrame {
         l.setTitle("LoginForm");
         l.setVisible(true);
     }//GEN-LAST:event_logoutbtnActionPerformed
+
+    private void docappbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docappbtnActionPerformed
+        // TODO add your handling code here:
+        ScheduleAppointment sap = new ScheduleAppointment();
+        sap.setTitle("Schedule Appointment");
+        sap.setVisible(true);
+    }//GEN-LAST:event_docappbtnActionPerformed
 
     /**
      * @param args the command line arguments
