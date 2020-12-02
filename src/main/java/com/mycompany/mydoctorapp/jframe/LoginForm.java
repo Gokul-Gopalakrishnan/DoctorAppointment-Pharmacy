@@ -331,11 +331,13 @@ public class LoginForm extends javax.swing.JFrame {
                 DocDashboard dd = new DocDashboard();
                 dd.setTitle("Doc Dashboard");
                 dd.setVisible(true);
+                dd.jLabel3.setText(username);
             }else{
                 dispose();
                 Dashboard d = new Dashboard();
                 d.setTitle("Dashboard");
                 d.setVisible(true);
+                d.jLabel1.setText(username);
             }
         }else{
             System.out.println("username: "+username);

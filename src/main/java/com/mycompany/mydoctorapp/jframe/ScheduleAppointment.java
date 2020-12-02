@@ -43,6 +43,7 @@ public class ScheduleAppointment extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jsap1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,7 +55,7 @@ public class ScheduleAppointment extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Address", "Specialization", "Qualification"
+                "Doctor id", "Name", "Address", "Specialization", "Qualification"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -71,6 +72,10 @@ public class ScheduleAppointment extends javax.swing.JFrame {
             }
         });
 
+        jsap1.setBackground(new java.awt.Color(255, 255, 255));
+        jsap1.setForeground(new java.awt.Color(0, 0, 0));
+        jsap1.setText("jsap1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -80,13 +85,17 @@ public class ScheduleAppointment extends javax.swing.JFrame {
                 .addGap(69, 69, 69)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jsap1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addComponent(jsap1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -111,25 +120,27 @@ public class ScheduleAppointment extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/docappointment", "root", "");
             Statement st = con.createStatement();
-            String sql = "select Concat('Dr. ',Firstname,' ',Lastname)as Name,Address,Spezialization,Qualification from doctor";
+            String sql = "select Doc_id,Concat('Dr. ',Firstname,' ',Lastname)as Name,Address,Spezialization,Qualification from doctor";
             ResultSet rs = st.executeQuery(sql);
             while(rs.next())
             {
+                String id = rs.getString("Doc_id");
                 String Name = rs.getString("Name");
                 String Address = rs.getString("Address");
                 String Specialization = rs.getString("Spezialization");
                 String Qualification = rs.getString("Qualification");
             
-            String tbData[] = {Name,Address,Specialization,Qualification};
+            String tbData[] = {id,Name,Address,Specialization,Qualification};
             DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
             
             tblModel.addRow(tbData);
             }
+            String id = rs.getString("Doc_id");
             String Name = rs.getString("Name");
             String Address = rs.getString("Address");
             String Specialization = rs.getString("Spezialization");
             String Qualification = rs.getString("Qualification");
-            String tbData[] = {Name,Address,Specialization,Qualification};
+            String tbData[] = {id,Name,Address,Specialization,Qualification};
             System.out.println(tbData[0]);        
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
@@ -141,19 +152,24 @@ public class ScheduleAppointment extends javax.swing.JFrame {
         // TODO add your handling code here:
         int index = jTable1.getSelectedRow();
         TableModel model = jTable1.getModel();
-        String Name = model.getValueAt(index,0).toString();
-        String Address = model.getValueAt(index,1).toString();
-        String Specialization = model.getValueAt(index,2).toString();
-        String Qualification = model.getValueAt(index,3).toString();
+        String id = model.getValueAt(index,0).toString();
+        String Name = model.getValueAt(index,1).toString();
+        String Address = model.getValueAt(index,2).toString();
+        String Specialization = model.getValueAt(index,3).toString();
+        String Qualification = model.getValueAt(index,4).toString();
         
         jtRowData.setVisible(true);
         jtRowData.pack();
         jtRowData.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
+         jtRowData.jTextField7.setText(id);
         jtRowData.jTextField1.setText(Name);
         jtRowData.jTextField2.setText(Address);
         jtRowData.jTextField3.setText(Specialization);
         jtRowData.jTextField4.setText(Qualification);
+        ScheduleAppointment sa = new ScheduleAppointment();
+        Booking b1 = new Booking();
+        b1.jbook1.setText(sa.jsap1.getText());
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -196,5 +212,6 @@ public class ScheduleAppointment extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    public javax.swing.JLabel jsap1;
     // End of variables declaration//GEN-END:variables
 }

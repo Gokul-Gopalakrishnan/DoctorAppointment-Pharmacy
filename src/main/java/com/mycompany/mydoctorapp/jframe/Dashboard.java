@@ -36,6 +36,10 @@ public class Dashboard extends javax.swing.JFrame {
         docappbtn = new javax.swing.JButton();
         prevbtn = new javax.swing.JButton();
         feedbackbtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,6 +153,21 @@ public class Dashboard extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 540));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, 80, 30));
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("WELCOME , ");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, -1, -1));
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 70, 150, 30));
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("patient id is :");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 80, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,6 +200,9 @@ public class Dashboard extends javax.swing.JFrame {
         ScheduleAppointment sap = new ScheduleAppointment();
         sap.setTitle("Schedule Appointment");
         sap.setVisible(true);
+        Dashboard d1 = new Dashboard();
+        String n1 = d1.jLabel1.getText();
+        sap.jsap1.setText(n1);
     }//GEN-LAST:event_docappbtnActionPerformed
 
     /**
@@ -223,6 +245,10 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton docappbtn;
     private javax.swing.JButton feedbackbtn;
     private javax.swing.JButton homebtn;
+    public javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
